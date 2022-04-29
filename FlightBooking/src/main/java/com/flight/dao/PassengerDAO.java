@@ -13,7 +13,7 @@ public interface PassengerDAO extends JpaRepository<Passenger, Integer>, CrudRep
 	@Query("select p from Passenger p where age>14")
 	List<Passenger> getPassenger();
 	
-	@Query("select p from Passenger p where gender='m'")
+	@Query("select p from Passenger p where gender='M'")
 	List<Passenger> getMale();
 
 }
