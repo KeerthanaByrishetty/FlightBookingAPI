@@ -1,0 +1,498 @@
+/test for underwriter classs
+import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.*;
+
+class UnderwriterTest {
+
+    @Test
+    void shouldSetAndGetNameCorrectly() {
+        Underwriter underwriter = new Underwriter();
+        underwriter.setName("John Doe");
+
+        assertEquals("John Doe", underwriter.getName());
+    }
+
+    @Test
+    void shouldSetAndGetAddressCorrectly() {
+        Underwriter underwriter = new Underwriter();
+        underwriter.setAddress("123 Main St");
+
+        assertEquals("123 Main St", underwriter.getAddress());
+    }
+
+    @Test
+    void shouldHandleNullName() {
+        Underwriter underwriter = new Underwriter();
+        underwriter.setName(null);
+
+        assertNull(underwriter.getName());
+    }
+
+    @Test
+    void shouldHandleNullAddress() {
+        Underwriter underwriter = new Underwriter();
+        underwriter.setAddress(null);
+
+        assertNull(underwriter.getAddress());
+    }
+
+    @Test
+    void shouldCreateUnderwriterWithAllFields() {
+        Underwriter underwriter = new Underwriter("John Doe", "123 Main St");
+
+        assertEquals("John Doe", underwriter.getName());
+        assertEquals("123 Main St", underwriter.getAddress());
+    }
+}
+
+/scan Underwriter controller for security vulnerabilities
+1. **Check for Input Validation**: Ensure all inputs are validated to prevent injection attacks (e.g., SQL Injection, XSS).
+2. **Verify Authentication and Authorization**: Ensure endpoints are protected with proper authentication and role-based access control.
+3. **Inspect Data Exposure**: Ensure sensitive data is not exposed in responses.
+4. **Review Dependency Versions**: Ensure all dependencies are up-to-date and free of known vulnerabilities.
+5. **Check for CSRF Protection**: Ensure CSRF tokens are implemented for state-changing operations.
+6. **Analyze Logging Practices**: Ensure sensitive information is not logged.
+
+If you are using tools like `SonarQube`, `Checkmarx`, or `OWASP Dependency-Check`, you can integrate them into your build process to automate the scanning.
+
+For manual review, you can share the `Underwriter` controller code, and I can help identify potential vulnerabilities.
+
+/doc - generate documentation
+/**
+ * The `DefectSummaryGenerator` class provides functionality to group defects
+ * by their impact level and category. This is useful for summarizing and analyzing
+ * defects in a structured manner.
+ */
+public class DefectSummaryGenerator {
+
+    /**
+     * Represents a defect with a title, category, and impact level.
+     */
+    public static class Defect {
+        private String title;
+        private String category;
+        private String impactLevel;
+
+        /**
+         * Constructs a new `Defect` instance.
+         *
+         * @param title       The title of the defect.
+         * @param category    The category of the defect (e.g., UI, Performance).
+         * @param impactLevel The impact level of the defect (e.g., High, Medium, Low).
+         */
+        public Defect(String title, String category, String impactLevel) {
+            this.title = title;
+            this.category = category;
+            this.impactLevel = impactLevel;
+        }
+
+        // Getters and setters omitted for brevity
+    }
+
+    /**
+     * Groups a list of defects by their impact level and category.
+     *
+     * @param defects A list of `Defect` objects to be grouped.
+     * @return A map where the key is the impact level, and the value is another map
+     *         where the key is the category and the value is the count of defects
+     *         in that category.
+     */
+    public static Map<String, Map<String, Long>> groupDefects(List<Defect> defects) {
+        // Implementation omitted for brevity
+        return null;
+    }
+}
+```
+Generate unit test case using VSTest for testing following conditions for all fields of Policy class listed here - Email should be valid 
+expression, Account Number is 8 digit number & cannot be empty, Policy Number is 8 digit number, First Name is 50 character n on-empty 
+string, Last Name is 50 character non-empty string, Postal Code is 7 digit number, Phone is valid phone number format, Producer Code is 
+5 character not empty string, Group Code is 5 character not empty string, Master Code is 5 character not empty string, City is 20 character 
+non-empty string, State is 20 character non-empty string, Effective Date is valid date format less than or equal to current date, Expiration 
+Date is valid date format greater than or equal to current date, Annual Premium decimal type with 2 decimal places non zero value
+package com.vm.policy;
+
+import org.junit.jupiter.api.Test;
+
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.regex.Pattern;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class PolicyTests {
+
+    @Test
+    void email_ShouldBeValid() {
+        String email = "test@example.com";
+        assertTrue(Pattern.matches("^[^@\\s]+@[^@\\s]+\\.[^@\\s]+$", email), "Email is not valid.");
+    }
+
+    @Test
+    void accountNumber_ShouldBe8DigitAndNotEmpty() {
+        String accountNumber = "12345678";
+        assertTrue(accountNumber != null && accountNumber.matches("\\d{8}"), "Account Number is not valid.");
+    }
+
+    @Test
+    void policyNumber_ShouldBe8Digit() {
+        String policyNumber = "87654321";
+        assertTrue(policyNumber.matches("\\d{8}"), "Policy Number is not valid.");
+    }
+
+    @Test
+    void firstName_ShouldBeNonEmptyAndMax50Characters() {
+        String firstName = "John";
+        assertTrue(firstName != null && !firstName.isEmpty() && firstName.length() <= 50, "First Name is not valid.");
+    }
+
+    @Test
+    void lastName_ShouldBeNonEmptyAndMax50Characters() {
+        String lastName = "Doe";
+        assertTrue(lastName != null && !lastName.isEmpty() && lastName.length() <= 50, "Last Name is not valid.");
+    }
+
+    @Test
+    void postalCode_ShouldBe7Digit() {
+        String postalCode = "1234567";
+        assertTrue(postalCode.matches("\\d{7}"), "Postal Code is not valid.");
+    }
+
+    @Test
+    void phone_ShouldBeValidPhoneNumber() {
+        String phone = "+1-123-456-7890";
+        assertTrue(Pattern.matches("^\\+?[0-9\\-]+$", phone), "Phone number is not valid.");
+    }
+
+    @Test
+    void producerCode_ShouldBeNonEmptyAnd5Characters() {
+        String producerCode = "ABCDE";
+        assertTrue(producerCode != null && !producerCode.isEmpty() && producerCode.length() == 5, "Producer Code is not valid.");
+    }
+
+    @Test
+    void groupCode_ShouldBeNonEmptyAnd5Characters() {
+        String groupCode = "FGHIJ";
+        assertTrue(groupCode != null && !groupCode.isEmpty() && groupCode.length() == 5, "Group Code is not valid.");
+    }
+
+    @Test
+    void masterCode_ShouldBeNonEmptyAnd5Characters() {
+        String masterCode = "KLMNO";
+        assertTrue(masterCode != null && !masterCode.isEmpty() && masterCode.length() == 5, "Master Code is not valid.");
+    }
+
+    @Test
+    void city_ShouldBeNonEmptyAndMax20Characters() {
+        String city = "New York";
+        assertTrue(city != null && !city.isEmpty() && city.length() <= 20, "City is not valid.");
+    }
+
+    @Test
+    void state_ShouldBeNonEmptyAndMax20Characters() {
+        String state = "California";
+        assertTrue(state != null && !state.isEmpty() && state.length() <= 20, "State is not valid.");
+    }
+
+    @Test
+    void effectiveDate_ShouldBeValidAndLessThanOrEqualToCurrentDate() {
+        LocalDate effectiveDate = LocalDate.now().minusDays(1);
+        assertTrue(effectiveDate.isBefore(LocalDate.now()) || effectiveDate.isEqual(LocalDate.now()), "Effective Date is not valid.");
+    }
+
+    @Test
+    void expirationDate_ShouldBeValidAndGreaterThanOrEqualToCurrentDate() {
+        LocalDate expirationDate = LocalDate.now().plusDays(1);
+        assertTrue(expirationDate.isAfter(LocalDate.now()) || expirationDate.isEqual(LocalDate.now()), "Expiration Date is not valid.");
+    }
+
+    @Test
+    void annualPremium_ShouldBeDecimalWithTwoDecimalPlacesAndNonZero() {
+        BigDecimal annualPremium = new BigDecimal("1234.56");
+        assertTrue(annualPremium.compareTo(BigDecimal.ZERO) > 0 && annualPremium.scale() <= 2, "Annual Premium is not valid.");
+    }
+}
+
+### 1. **Expose RESTful APIs**
+   - Use Spring Boot to create a backend that exposes RESTful APIs for mobile applications. These APIs will handle business logic and data exchange between the mobile app and the backend.
+   - Use `@RestController` to define endpoints and `@RequestMapping` to map URLs.
+
+### 2. **Implement Authentication and Authorization**
+   - Secure the APIs using Spring Security with OAuth2, JWT, or session-based authentication.
+   - For mobile platforms, JWT is a preferred choice as it is stateless and works well with REST APIs.
+
+### 3. **Enable Caching**
+   - Use Spring's caching mechanism (`@EnableCaching`) to improve performance for frequently accessed data.
+   - For example, cache policy or user data to reduce database calls.
+
+### 4. **Optimize for Mobile**
+   - Use pagination for large datasets to avoid overloading mobile devices (`PageRequest` in Spring Data).
+   - Implement data validation to ensure only valid data is processed.
+
+### 5. **Add Mobile-Specific Features**
+   - Integrate push notifications using Firebase Cloud Messaging (FCM) or similar services.
+   - Add offline support by designing APIs to handle synchronization when the device is back online.
+
+### 6. **Use Cloud-Native Architecture**
+   - Deploy the Spring Boot application on a cloud platform (e.g., AWS, Azure, or Google Cloud) to ensure scalability and high availability for mobile users.
+
+### 7. **Test APIs**
+   - Use tools like Postman or Swagger (via Springdoc OpenAPI) to test and document the APIs.
+   - Ensure the APIs are mobile-friendly by testing with limited bandwidth and high latency scenarios.
+
+### 8. **Develop Mobile Apps**
+   - Use frameworks like Flutter, React Native, or native development (Java/Kotlin for Android, Swift for iOS) to consume the APIs.
+
+### Example Code for RESTful API
+Here’s an example of a Spring Boot RESTful API for managing policies:
+
+```java
+@RestController
+@RequestMapping("/api/policies")
+public class PolicyController {
+
+    private final PolicyService policyService;
+
+    public PolicyController(PolicyService policyService) {
+        this.policyService = policyService;
+    }
+
+    @PostMapping("/create")
+    public ResponseEntity<String> createPolicy(@RequestBody Policy policy) {
+        policyService.createPolicy(policy);
+        return ResponseEntity.status(201).body("Policy created successfully");
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Policy> getPolicyById(@PathVariable Long id) {
+        Policy policy = policyService.getPolicyById(id);
+        if (policy == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(policy);
+    }
+}
+```
+
+This approach ensures a robust, scalable, and mobile-friendly backend system.
+
+1. `PolicyController` - Manages policy-related operations.
+2. `UserController` - Manages user-related operations.
+
+### Guidelines for Deciding the Number of Controllers:
+1. **Separation of Concerns**: Each controller should handle a specific domain or feature. For example:
+   - If you need to manage claims, you might create a `ClaimController`.
+   - If you need to handle authentication, you might create an `AuthController`.
+
+2. **Complexity of Features**: If a feature has many endpoints or complex logic, consider creating a dedicated controller for it.
+
+3. **Reusability and Modularity**: Group related endpoints into a single controller to make the code easier to maintain and test.
+
+### Example:
+- If your application needs to handle claims, payments, or reports, you might add:
+  - `ClaimController`
+  - `PaymentController`
+  - `ReportController`
+
+In summary, create one controller per distinct feature or domain in your application. For now, you have two controllers, but you can add more as new features are introduced.
+
+### Core Spring Boot Dependencies
+1. **Spring Boot Starter Web**: For building RESTful APIs.
+   ```xml
+   <dependency>
+       <groupId>org.springframework.boot</groupId>
+       <artifactId>spring-boot-starter-web</artifactId>
+   </dependency>
+   ```
+
+2. **Spring Boot Starter Security**: For securing APIs with authentication and authorization.
+   ```xml
+   <dependency>
+       <groupId>org.springframework.boot</groupId>
+       <artifactId>spring-boot-starter-security</artifactId>
+   </dependency>
+   ```
+
+3. **Spring Boot Starter Data JPA**: For database interaction using JPA.
+   ```xml
+   <dependency>
+       <groupId>org.springframework.boot</groupId>
+       <artifactId>spring-boot-starter-data-jpa</artifactId>
+   </dependency>
+   ```
+
+4. **Spring Boot Starter Cache**: For caching frequently accessed data.
+   ```xml
+   <dependency>
+       <groupId>org.springframework.boot</groupId>
+       <artifactId>spring-boot-starter-cache</artifactId>
+   </dependency>
+   ```
+
+### Database and Persistence
+5. **Database Driver**: For connecting to your database (e.g., MySQL, PostgreSQL).
+   - MySQL:
+     ```xml
+     <dependency>
+         <groupId>mysql</groupId>
+         <artifactId>mysql-connector-java</artifactId>
+     </dependency>
+     ```
+   - PostgreSQL:
+     ```xml
+     <dependency>
+         <groupId>org.postgresql</groupId>
+         <artifactId>postgresql</artifactId>
+     </dependency>
+     ```
+
+6. **Hibernate Validator**: For validating request payloads.
+   ```xml
+   <dependency>
+       <groupId>org.hibernate.validator</groupId>
+       <artifactId>hibernate-validator</artifactId>
+   </dependency>
+   ```
+
+### API Documentation
+7. **Springdoc OpenAPI**: For generating API documentation (Swagger UI).
+   ```xml
+   <dependency>
+       <groupId>org.springdoc</groupId>
+       <artifactId>springdoc-openapi-ui</artifactId>
+       <version>1.7.0</version>
+   </dependency>
+   ```
+
+### Security Enhancements
+8. **JWT (JSON Web Token)**: For stateless authentication.
+   ```xml
+   <dependency>
+       <groupId>io.jsonwebtoken</groupId>
+       <artifactId>jjwt</artifactId>
+       <version>0.9.1</version>
+   </dependency>
+   ```
+
+### Utility Libraries
+9. **Apache Commons Lang**: For utility functions like string manipulation.
+   ```xml
+   <dependency>
+       <groupId>org.apache.commons</groupId>
+       <artifactId>commons-lang3</artifactId>
+   </dependency>
+   ```
+
+10. **ModelMapper**: For mapping DTOs to entities and vice versa.
+    ```xml
+    <dependency>
+        <groupId>org.modelmapper</groupId>
+        <artifactId>modelmapper</artifactId>
+        <version>2.4.4</version>
+    </dependency>
+    ```
+
+### Testing
+11. **Spring Boot Starter Test**: For writing unit and integration tests.
+    ```xml
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-test</artifactId>
+        <scope>test</scope>
+    </dependency>
+    ```
+
+### Optional Libraries
+12. **Firebase Admin SDK**: For push notifications (if using Firebase).
+    ```xml
+    <dependency>
+        <groupId>com.google.firebase</groupId>
+        <artifactId>firebase-admin</artifactId>
+        <version>9.1.1</version>
+    </dependency>
+    ```
+
+13. **Spring for GraphQL**: If you plan to use GraphQL instead of REST.
+    ```xml
+    <dependency>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-graphql</artifactId>
+    </dependency>
+    ```
+
+These libraries will cover the essential features for your mobile app backend, including API development, security, database interaction, caching, and documentation.
+
+---
+
+### **Main Application**
+The entry point of the application is the `InsurancePolicyManagementServiceApplication` class. It is annotated with `@SpringBootApplication`, which combines `@Configuration`, `@EnableAutoConfiguration`, and `@ComponentScan`. The `@EnableCaching` annotation is used to enable caching in the application, improving performance by storing frequently accessed data.
+
+---
+
+### **Controllers**
+The application has two main controllers: `PolicyController` and `UserController`. Each controller is responsible for handling specific domains of the application.
+
+#### **PolicyController**
+The `PolicyController` manages operations related to insurance policies. It is annotated with `@RestController` and maps all endpoints under `/api/policies`. Key endpoints include:
+- **Create Policy**: Handles HTTP POST requests to create a new policy.
+- **Get Policy by ID**: Retrieves a policy by its ID, with caching enabled using `@Cacheable`.
+- **Get All Policies**: Supports pagination to fetch a list of policies.
+- **Get Policies by User**: Fetches policies associated with a specific user.
+- **Get Policy with Claims**: Retrieves a policy along with its associated claims, with validation for the `policyId` parameter.
+
+#### **UserController**
+The `UserController` handles user-related operations and maps endpoints under `/api/users`. Key endpoints include:
+- **Register User**: Handles HTTP POST requests to register a new user.
+- **Get User by ID**: Retrieves a user by their ID.
+- **Get All Users**: Fetches a list of all users.
+- **Update User**: Updates user details based on their ID.
+- **Delete User**: Deletes a user by their ID.
+
+Both controllers use `ResponseEntity` to provide flexible control over HTTP responses, including status codes and response bodies.
+
+---
+
+### **Validation**
+The `PolicyValidator` class provides static methods for validating various fields, such as email, account numbers, policy numbers, names, postal codes, phone numbers, and dates. These methods ensure that input data adheres to specific formats and constraints, improving data integrity.
+
+Examples of validation methods:
+- `isValidEmail`: Validates email format using a regular expression.
+- `isValidPolicyNumber`: Ensures the policy number is an 8-digit numeric string.
+- `isValidEffectiveDate`: Checks if the effective date is today or in the past.
+- `isValidAnnualPremium`: Validates that the annual premium is a positive decimal with up to two decimal places.
+
+---
+
+### **Features and Libraries**
+The application uses several Spring Boot features and libraries:
+1. **Spring Boot Starter Web**: For building RESTful APIs.
+2. **Spring Boot Starter Data JPA**: For database interactions.
+3. **Spring Boot Starter Security**: For securing endpoints (if required).
+4. **Spring Boot Starter Cache**: For caching frequently accessed data.
+5. **Springdoc OpenAPI**: For API documentation and testing via Swagger UI.
+6. **Hibernate Validator**: For validating request payloads.
+
+Optional libraries include:
+- **JWT**: For stateless authentication.
+- **Firebase Admin SDK**: For push notifications (if needed).
+
+---
+
+### **Caching**
+Caching is enabled using the `@EnableCaching` annotation in the main application class. The `@Cacheable` annotation in the `PolicyController` caches the result of the `getPolicyById` method, reducing database calls for frequently accessed policies.
+
+---
+
+### **Pagination**
+The `getAllPolicies` method in `PolicyController` uses Spring Data's `PageRequest` to implement pagination. This ensures that large datasets are fetched in manageable chunks, improving performance for mobile platforms.
+
+---
+
+### **Design Principles**
+1. **Separation of Concerns**: Controllers handle HTTP requests, while services manage business logic.
+2. **Validation**: Input data is validated using the `PolicyValidator` class.
+3. **Caching**: Frequently accessed data is cached to improve performance.
+4. **Modularity**: Each controller focuses on a specific domain (policies or users).
+
+---
+
+This design ensures a scalable, maintainable, and mobile-friendly backend system for managing insurance policies and users.
